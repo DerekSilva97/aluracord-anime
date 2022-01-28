@@ -1,36 +1,7 @@
 import appConfig from '../config.json';
 import { Box, Button, Text, TextField, Image } from '@skynexui/components';
-
-function GlobalStyle() {
-    return (
-        <style global jsx>{`
-            * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style: none;
-            }
-            body {
-                font-family:'Open Sans',sans-serif;
-            }
-
-            /*App fit Height*/
-            html, body, #__next {
-                min-height: 100vh;
-                display: flex;
-                flex: 1;
-            }
-
-            #__next{
-                flex: 1;
-            }
-            #__next > *{
-                flex: 1;
-            }
-            /*App fit Height*/
-        `}</style>
-    );
-}
+import React from 'react';
+import { useRouter } from 'next/router';
 
 function Titulo(props) {
     console.log(props);
@@ -51,33 +22,18 @@ function Titulo(props) {
     );
 }
 
-//Componente React
-// function HomePage() {
-
-//     return (
-//         <div>
-//             <GlobalStyle/>
-//             <Titulo tag="h2">Boas vindas de volta!</Titulo>
-//             <h2>Discord - Alura Matrix</h2>
-//         </div>
-
-//     )
-//   }
-
-//   export default HomePage
-
-
 export default function PaginaInicial() {
-    const username = 'DerekSilva97';
-
+   // const username = 'DerekSilva97';
+   const [username, setUsername] = React.useState('Dereksilva97');
+   const  roteamento = useRouter();
+   
     return (
         <>
-            <GlobalStyle />
             <Box
                 styleSheet={{
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    backgroundColor: appConfig.theme.colors.primary[500],
-                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+                    // backgroundColor: appConfig.theme.colors.primary[500],
+                    backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/12/bright-gaming-room-setup.jpg)',
                     backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 }}
             >
@@ -93,23 +49,51 @@ export default function PaginaInicial() {
                         width: '100%', maxWidth: '700px',
                         borderRadius: '5px', padding: '32px', margin: '16px',
                         boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
+                        backgroundColor: 'rgba(4, 150, 255, 0.6)',
+                        //backgroundColor: appConfig.theme.colors.neutrals[700],
                     }}
                 >
                     {/* Formulário */}
                     <Box
                         as="form"
+                        onSubmit={function(infosDoEvento){
+                            infosDoEvento.preventDefault()
+                            console.log('Alguem quer entrar')
+                            roteamento.push('/chat');
+
+                           // window.location.href = '/chat';
+                        }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                             width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
                         }}
                     >
-                        <Titulo tag="h1">Boas vindas Ao mundo Anime!</Titulo>
-                        <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
+                        <Titulo tag="h2">Boas vindas Ao mundo Game!</Titulo>
+                        <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[100] }}>
                             {appConfig.name}
                         </Text>
 
-                        <TextField
+                        {/* <input type="text"
+                        value={username}
+                        onChange={function (event) {
+                            console.log('usuário digitou', event.target.value)
+                            //onde está o valor? 
+                            const valor = event.target.value;
+                            // Trocar o valor da variavel 
+                            // Através do react e avise quem precisa
+                            setUsername(valor);
+                        }}
+                        /> */}
+                        { <TextField
+                        value={username}
+                        onChange={function (event) {
+                            // console.log('usuário digitou', event.target.value)
+                            //onde está o valor? 
+                            const valor = event.target.value;
+                            // Trocar o valor da variavel 
+                            // Através do react e avise quem precisa
+                            setUsername(valor);
+                        }}
                             fullWidth
                             textFieldColors={{
                                 neutral: {
@@ -119,7 +103,7 @@ export default function PaginaInicial() {
                                     backgroundColor: appConfig.theme.colors.neutrals[800],
                                 },
                             }}
-                        />
+                        /> }
                         <Button
                             type='submit'
                             label='Entrar'
@@ -143,6 +127,7 @@ export default function PaginaInicial() {
                             alignItems: 'center',
                             maxWidth: '200px',
                             padding: '16px',
+                           // backgroundColor: 'rgba(52, 52, 52, 0.9)',
                             backgroundColor: appConfig.theme.colors.neutrals[800],
                             border: '1px solid',
                             borderColor: appConfig.theme.colors.neutrals[999],
