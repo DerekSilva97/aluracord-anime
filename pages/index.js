@@ -61,7 +61,6 @@ export default function PaginaInicial() {
                             console.log('Alguem quer entrar')
                             roteamento.push('/chat');
 
-                           // window.location.href = '/chat';
                         }}
                         styleSheet={{
                             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
